@@ -247,3 +247,28 @@ provider "random" {
 ```
 terraform apply --auto-approve
 ```
+
+
+### Issues with Terraform Cloud Login and Gitpod Workspace
+
+- Issues with getting a token from `terraform login` launches a WYSIWYG browser in the cli that generates a token. Gitpod does not handle that process
+gracefully.
+
+- We had to manually generate the token in the Terraform Cloud Gui, create and open the file, and then paste in the token.
+
+```bash
+touch /home/gitpod/.terraform.d/credentials.tfrc.json
+open /home/gitpod/.terraform.d/credentials.tfrc.json
+``` 
+
+```json
+{
+  "credentials": {
+    "app.terraform.io": {
+      "token": "YOUR_TERRAFORM_CLOUD_TOKEN"
+    }
+  }
+}
+```
+
+[terraform-cloud-token](https://app.terraform.io/app/settings/tokens?source=terraform-login)
