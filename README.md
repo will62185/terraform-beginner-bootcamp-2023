@@ -237,3 +237,13 @@ provider "random" {
 ### Terraform Directory
 
 `.terraform` directory contains binaries of providers.
+
+### Terraform Destroy
+
+`teraform destroy` will destroy resources that terraform knows about.
+
+- Use `--auto-approve` to skip manually approving a plan or destroy
+
+```
+terraform apply --auto-approve
+```
