@@ -177,3 +177,63 @@ aws sts get-caller-identity
 ```
 
 - We'll need to generate AWS CLI credentials from AWS IAM in order to use the AWS CLI.
+
+
+## Terraform Basics
+
+### Terraform Registry
+
+- Terraform sources their providers and modules from the Terraform registry which located at [registry.terraform.io](registry.terraform.io).
+
+- **Providers** are the way you directly interact with an api using terraform. You will be able to create resources using those providers:
+
+```
+provider "random" {
+  # Configuration options
+}
+```
+[Random Terraform Provider](https://registry.terraform.io/providers/hashicorp/random/latest)
+
+
+- **Modules** are a collection of terraform files, that provides a template of commonly used actions. This will make terraform code modular, portable, and shareable.
+
+## Terraform Console
+
+- We can see a list of all the terraform commands by typing `terraform`.
+
+#### Terraform Init
+
+- For new terraform projects we will run `terraform init` to download binaries for terraform providers.
+
+#### Terraform Plan
+
+- This will generate out a changeset, about the state of our infrastructure and what will be changed.
+- We can output this changeset e.g. `terraform plan` to be passed to an apply, but often you can just ignore outputting the plan to a file.
+
+#### Terraform Apply
+
+- This will run a plan and pass the changeset to be executed by terraform e.g. `terraform apply`. Apply should prompt yes or no.
+
+- If we want to automatically approve an apply we can provide the auto approve flag e.g. `terraform apply --auto-approve`
+
+### Terraform Lock Files
+
+- `.terraform.lock.hcl` contains the locked versioning for the providers or modules that should be used with this project. 
+
+- The terraform lock file **should be** committed to your Version Control System (VCS) in our case that is Github.
+
+### Terraform State Files
+
+- `.terraform.tfstate` contains information about the current state of your infrastructure.
+
+- The state file **should never** be committed to your Version Control System.
+
+- The state file can contain sensitive data.
+
+- If the file is lost, you will lose the knowing state of your infrastructure.
+
+- `.terraform.tfstate.backup` is the previous state file state.
+
+### Terraform Directory
+
+`.terraform` directory contains binaries of providers.
