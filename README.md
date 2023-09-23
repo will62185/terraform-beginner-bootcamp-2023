@@ -272,3 +272,7 @@ open /home/gitpod/.terraform.d/credentials.tfrc.json
 ```
 
 [terraform-cloud-token](https://app.terraform.io/app/settings/tokens?source=terraform-login)
+
+- We have automated the process of creating the Terraform credentials file, using a workaround with the following bash script [bin/generate_tfrc_credentials.sh](bin/generate_tfrc_credentials.sh)
+
+- Additionally, we have generated a longer living Terraform API token.
