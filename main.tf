@@ -1,13 +1,3 @@
-# terraform {
-# cloud {
-#   organization = "will-will-org"
-
-#   workspaces {
-#     name = "terra-house-01"
-#   }
-# }
-
-
 # https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string
 resource "random_string" "bucket_name" {
   length  = 32
