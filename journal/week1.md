@@ -49,4 +49,24 @@ PROJECT_ROOT
 
 #### order of terraform variables
 
-- TODO: document which terraform variables takes precedence. 
+- TODO: document which terraform variables takes precedence.
+
+## Dealing with Configuration Drift
+
+#### What happens if we lose our sate file?
+
+- If you lose your statefile, you most likely have to tear down all of your cloud infrastructure manually.
+- You can use terraform import, but it won't be available for all cloud resources. You will need to check the terraform providers documentation for which resources support import.
+
+#### Fix Missing Resources with Terraform Import
+
+`terraform import aws_s3_bucket.bucket bucket-name`
+
+[Terraform Import](https://developer.hashicorp.com/terraform/cli/import)
+[AWS S3 Bucket Import](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket#import)
+
+
+#### Fix Manual Configuration
+
+- If someone goes performs CRUD cloud resources through ClickOps.
+- If we run Terraform plan with an attempt to put our infrastructure back into the expected state fixing Configuration Drift.
