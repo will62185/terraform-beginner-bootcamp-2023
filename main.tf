@@ -1,10 +1,26 @@
-# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket
-resource "aws_s3_bucket" "website_bucket" {
-  # https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html
-  bucket = var.bucket_name
+terraform {
+  # cloud {
+  #   organization = "will-will-org"
 
-  tags = {
-    UserUuid = var.user_uuid
+  #   workspaces {
+  #     name = "terra-house-01"
+  #   }
+  # }
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "5.17.0"
+    }
   }
+}
 
+provider "aws" {
+  # Configuration options
+}
+
+module "terrahouse_aws" {
+  source      = "./modules/terrahouse_aws"
+  user_uuid   = var.user_uuid
+  bucket_name = var.bucket_name
 }
