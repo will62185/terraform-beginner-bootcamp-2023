@@ -62,19 +62,38 @@ PROJECT_ROOT
 
 #### var-file flag
 
-- TODO: research and document this flag.
+- When using the `-var` flag from the cli we can specify individual variables
+
+```terraform
+terraform apply -var="image_id=ami-abc123"
+terraform apply -var='image_id_list=["ami-abc123","ami-def456"]' -var="instance_type=t2.micro"
+terraform apply -var='image_id_map={"us-east-1":"ami-abc123","us-east-2":"ami-def456"}'
+```
 
 #### terraform.tfvars
 
-- This is the default file to load in terraform variables in bulk.
+- This is the default file to load in terraform variables in bulk. 
+  - Also called Variable Definitions files.
+
+- Terraform also automatically loads a number of variable definitions files if they are present:
+  - Files named exactly `terraform.tfvars` or `terraform.tfvars.json`.
+  - Any files with names ending in `.auto.tfvars` or `.auto.tfvars.json`.
 
 #### auto.tfvars
 
-- TODO: research and document this functionality for terraform cloud.
+> This file is designed to hold automatically generated or sensitive variable values.
+It is typically not checked into version control systems (e.g., Git) to keep sensitive data, like passwords or API tokens, confidential.
+Variables defined in terraform.auto.tfvars will override any values defined in terraform.tfvars.
+When using this file, you can generate it dynamically or keep it separate from your main configuration files.
 
 #### order of terraform variables
 
-- TODO: document which terraform variables takes precedence.
+- Terraform loads variables in the following order, with later sources taking precedence over earlier ones:
+  - Environment variables (TF_VAR_variable_name)
+  - The terraform.tfvars file, if present.
+  - The terraform.tfvars.json file, if present.
+  - Any *.auto.tfvars or *.auto.tfvars.json files, processed in lexical order of their filenames.
+  - Any -var and -var-file options on the command line, in the order they are provided. (This includes variables set by a Terraform Cloud workspace.)
 
 ## Dealing with Configuration Drift
 
