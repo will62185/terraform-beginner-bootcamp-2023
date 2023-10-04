@@ -1,11 +1,10 @@
 terraform {
-  # cloud {
-  #   organization = "will-will-org"
-
-  #   workspaces {
-  #     name = "terra-house-01"
-  #   }
-  # }
+  cloud {
+    organization = "will-will-org"
+    workspaces {
+      name = "terraform-cloud"
+    }
+  }
 
   required_providers {
     aws = {
