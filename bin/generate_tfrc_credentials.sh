@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#! /usr/bin/env bash
 
 # Define target directory and file
 TARGET_DIR="/home/gitpod/.terraform.d"
