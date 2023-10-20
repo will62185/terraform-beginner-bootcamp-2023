@@ -1,11 +1,11 @@
 terraform {
-  # cloud {
-  #   organization = "will-will-org"
+  cloud {
+    organization = "will-will-org"
 
-  #   workspaces {
-  #     name = "terra-house-01"
-  #   }
-  # }
+    workspaces {
+      name = "terra-house-01"
+    }
+  }
 
   required_providers {
     aws = {
@@ -30,17 +30,14 @@ provider "terratowns" {
   token     = var.terratowns_access_token
 }
 
-module "terrahouse_aws" {
-  source              = "./modules/terrahouse_aws"
-  user_uuid           = var.teacherseat_user_uuid
-  # bucket_name         = var.bucket_name
-  index_html_filepath = var.index_html_filepath
-  error_html_filepath = var.error_html_filepath
-  content_version     = var.content_version
-  assets_path         = var.assets_path
+module "home_wow_hosting" {
+  source          = "./modules/terrahome_aws"
+  user_uuid       = var.teacherseat_user_uuid
+  public_path     = var.wow.public_path
+  content_version = var.wow.content_version
 }
 
-resource "terratowns_home" "home" {
+resource "terratowns_home" "home_wow" {
   name        = "Intro to World of Warcraft in 2023!"
   description = <<Description
 World of Warcraft changed the landscape of MMORPGS Forever.
@@ -48,8 +45,26 @@ People of all ages played it, and obsesed over it.
 Blizzard, the company that created the game, recently re-released it,
 calling it World of Warcraft Classic.
 Description
-  domain_name = module.terrahouse_aws.cloudfront_url
+  domain_name = module.home_wow_hosting.domain_name
   # domain_name = "abc3dgrz.cloudfront.net"
   town            = "missingo"
-  content_version = 1
+  content_version = var.wow.content_version
+}
+
+module "home_bbq_hosting" {
+  source              = "./modules/terrahome_aws"
+  user_uuid           = var.teacherseat_user_uuid
+  public_path  = var.bbq.public_path
+  content_version     = var.bbq.content_version
+}
+
+resource "terratowns_home" "home_bbq" {
+  name        = "Instant Pot BBQ Chicken"
+  description = <<Description
+This Instant Pot BBQ Chicken is an easy recipe you can make for a weeknight meal. You can use in so many ways!
+Description
+  domain_name = module.home_bbq_hosting.domain_name
+  # domain_name = "abc3dgrz.cloudfront.net"
+  town            = "missingo"
+  content_version = var.bbq.content_version
 }
